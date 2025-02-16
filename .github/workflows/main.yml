@@ -25,8 +25,8 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ 1147216 }}
+          private-key: ${{ secrets.GITHUB_TOKEN || 'SHA256:Zn5EBoSBG1+ruH9wGtoMHho7U4YyLPjxr3X0pPCITb4=' }}
 
       - name: Create Release
         id: create_release
