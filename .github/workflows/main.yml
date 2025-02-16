@@ -30,6 +30,6 @@ jobs:
           allowUpdates: true
           draft: false
           prerelease: false
-          artifacts: './module.zip', './module.json'
+          artifacts: './module.zip,./module.json'
 
 
