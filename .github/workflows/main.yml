@@ -21,11 +21,18 @@ jobs:
         id: get_version
         run: echo "VERSION=$(node ./.github/workflows/get-version.js)" >> $GITHUB_OUTPUT
 
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           tag: ${{ steps.get_version.outputs.VERSION }}
           allowUpdates: true
           draft: false
