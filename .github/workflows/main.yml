@@ -3,23 +3,33 @@ name: Create GitHub Release
 on:
   push:
     branches:
-      - 'main'
-    tags-ignore:
-      - '**'
-    paths:
-      - 'version.txt'
+      - master
 
 jobs:
-  create_foundry_release:
+  build:
     runs-on: ubuntu-latest
     name: Foundry Release
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Create GitHub Release
-        id: github-release
-        uses: foundryvtt-dcc/foundry-release-action@main
+      - uses: actions/checkout@v3
+
+      - name: Zip Files
+        working-directory: ./
+        run: zip -r ./module.zip ./*
+
+      - name: Get Version
+        shell: bash
+        id: get_version
+        run: echo "VERSION=$((node ./.github/workflows/get-version.js))" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
         with:
-          actionToken: ${{ secrets.GITHUB_TOKEN }}
-          manifestFileName: 'module.json'
-          manifestProtectedTrue: true
+          allowUpdates: true
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "./module.zip", ./module.json
+          tag: ${{ steps.get_version.outputs.VERSION }}
+          

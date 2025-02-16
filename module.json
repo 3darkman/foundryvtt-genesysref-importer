@@ -1,6 +1,6 @@
 {
   "id": "genesysref-importer",
-  "title": "GenesysRef Importer",
+  "title": "Genesys Ref Importer",
   "version": "0.1.0",
   "compatibility": {
     "minimum": "12",
