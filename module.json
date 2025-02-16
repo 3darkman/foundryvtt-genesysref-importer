@@ -1,0 +1,40 @@
+{
+  "id": "genesysref-importer",
+  "title": "GenesysRef Importer",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "genesys",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "Kirlian Silvestre",
+      "email": "kirlian.silvestre@gmail.com",
+      "discord": "Kirlian",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "module/importer.js"
+  ],
+  "styles": [
+    "styles/importer.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ]
+}
