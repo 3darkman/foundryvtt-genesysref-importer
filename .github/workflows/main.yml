@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Foundry Release
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Zip Files
         working-directory: ./
@@ -25,11 +25,11 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.get_version.outputs.VERSION }}
           allowUpdates: true
-          name: Release ${{ steps.get_version.outputs.VERSION }}
           draft: false
           prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./module.zip", ./module.json
-          tag: ${{ steps.get_version.outputs.VERSION }}
-          
+          artifacts: './module.zip', './module.json'
+
+
