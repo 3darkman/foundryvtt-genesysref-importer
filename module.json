@@ -1,7 +1,9 @@
 {
   "id": "genesysref-importer",
   "title": "Genesys Ref Importer",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "manifest": "https://github.com/3darkman/foundryvtt-genesysref-importer/releases/download/0.1.1/module.json",
+  "download": "https://github.com/3darkman/foundryvtt-genesysref-importer/releases/download/0.1.1/genesysref-importer-release.zip",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
