@@ -1,7 +1,7 @@
 {
   "id": "genesysref-importer",
   "title": "GenesysRef Importer",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -17,7 +17,7 @@
   },
   "authors": [
     {
-      "name": "Kirlian Silvestre",
+      "name": "Kirlian '3Darkman' Silvestre",
       "email": "kirlian.silvestre@gmail.com",
       "discord": "Kirlian",
       "flags": {}
