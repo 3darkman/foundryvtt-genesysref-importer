@@ -1,2 +1,2 @@
 let fs = require('fs')
-console.log(JSON.parse(fs.readFileSync("./module.json").toString()).version)
+console.log(2)
