@@ -1,7 +1,7 @@
 import {CONSTANTS} from "./constants.js";
-import {cleanDescription, parseBasicData, parseSource} from "./utils.js";
+import {cleanDescription, parseBasicData} from "./utils.js";
 
-function parseAbilities(archetype, metadata) {
+function parseAbilities(archetype, ) {
     let abilities = [];
 
     let newAbility = {

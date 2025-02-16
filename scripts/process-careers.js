@@ -1,7 +1,7 @@
 import {CONSTANTS} from "./constants.js";
 import {parseBasicData} from "./utils.js";
 
-function parseCareerSkills(career, metadata) {
+function parseCareerSkills(career, ) {
     return career.skills.map((skill) => game.items.find((item) => item.name.toLowerCase() === skill.name.toLowerCase() && item.type === CONSTANTS.types.skill));
 }
 

@@ -4,7 +4,7 @@ export function processMeta(obj) {
     return obj[CONSTANTS.divisions.meta];
 }
 
-export function parseCharacteristics(actor, metadata) {
+export function parseCharacteristics(actor, ) {
     return actor.characteristics;
 }
 
@@ -104,7 +104,6 @@ export function parseSource(item, metadata) {
 }
 
 export function processSymbol(match) {
-    const realMatch = match[0];
     const group01 = match[1].trim();
     const group02 = match[2].trim();
 

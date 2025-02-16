@@ -5,7 +5,7 @@ function parsePrice(price) {
     return isNaN(price) ? 0 : price;
 }
 
-function parseToContainer(newItem, data) {
+function parseToContainer(newItem, ) {
     newItem.type = CONSTANTS.types.container;
     newItem.system.encumbrance = 0;
     newItem.system.open = false;
@@ -29,7 +29,7 @@ function switchToContainer(newItem, data, metadata, folder = null) {
         ]
     }
     newItem.effects = [effect];
-    newItem.folder = metadata.folders[CONSTANTS.types.container]._id;
+    newItem.folder = folder !== null ? metadata.folders[CONSTANTS.types.container]._id : null;
     parseToContainer(newItem, data);
     return newItem;
 }

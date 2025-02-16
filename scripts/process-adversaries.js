@@ -113,7 +113,7 @@ async function parseSkills(adversary, metadata) {
 
         if (skill["ranks"] !== undefined) {
             metadata.source.abbreviation = document.folder.folder.name;
-            const newSkill = buildNewSkill({
+            return buildNewSkill({
                 name: document.name,
                 description: document.system.description,
                 rank: skill["ranks"],
@@ -122,7 +122,6 @@ async function parseSkills(adversary, metadata) {
                 initiative: document.system.initiative,
                 career: document.system.career,
             }, metadata, document.folder._id);
-            return newSkill;
         }
 
         return document;

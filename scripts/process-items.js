@@ -18,8 +18,6 @@ async function processFolders(obj, metadata) {
         flags: {}
     });
 
-    const types = Object.entries(CONSTANTS.types);
-
     for (const [key, value] of Object.entries(CONSTANTS.types)) {
         const newFolder = {
             name: value,

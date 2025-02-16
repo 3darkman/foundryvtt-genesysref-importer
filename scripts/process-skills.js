@@ -1,5 +1,5 @@
 import {CONSTANTS} from "./constants.js";
-import {parseBasicData, parseDice, parseDifficulty, parseSymbols} from "./utils.js";
+import {parseBasicData} from "./utils.js";
 
 export function parseDescription(skill) {
     let shouldUseText = ["<ul>"];

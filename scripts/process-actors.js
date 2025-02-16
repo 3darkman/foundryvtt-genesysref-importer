@@ -15,9 +15,7 @@ async function processFolders(obj, metadata) {
         flags: {}
     });
 
-    const types = Object.entries(CONSTANTS.actorsTypes);
-
-    for (const [key, value] of Object.entries(CONSTANTS.actorsTypes)) {
+    for (const [, value] of Object.entries(CONSTANTS.actorsTypes)) {
         const newFolder = {
             name: value,
             type: "Actor",
