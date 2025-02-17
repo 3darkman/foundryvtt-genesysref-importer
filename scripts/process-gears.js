@@ -29,7 +29,7 @@ function switchToContainer(newItem, data, metadata, folder = null) {
         ]
     }
     newItem.effects = [effect];
-    newItem.folder = folder !== null ? metadata.folders[CONSTANTS.types.container]._id : null;
+    newItem.folder = folder === null ? metadata.folders[CONSTANTS.types.container]._id : null;
     parseToContainer(newItem, data);
     return newItem;
 }
