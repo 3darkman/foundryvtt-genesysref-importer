@@ -22,24 +22,29 @@ async function processItemInput({ jsonfile, clipboardInput }) {
     }
 }
 
-Hooks.on('renderSidebarTab', (settings) => {
+Hooks.on('renderItemDirectory', (app, html, data) => {
+    console.log(`${CONSTANTS.module.name} | hook on renderSidebarTab`);
     if (!game?.user?.isGM)
         return;
-    renderSidebarButtons(settings, 'items', processItemInput);
+    renderSidebarButtons(html, 'items', processItemInput);
 });
 
-function renderSidebarButtons(settings, tab, handler) {
-    if (settings.id !== tab)
-        return;
+function renderSidebarButtons(html, tab, handler) {
+    //if (settings.id !== tab)
+      //  return;
     const name = tab.charAt(0).toUpperCase() + tab.slice(1);
-    const html = settings.element;
-    if (html.find('#inputButton').length !== 0)
+    console.log(`${CONSTANTS.module.name} | rendering import button ${html}`);
+
+    const $html = html instanceof jQuery ? html : $(html);
+
+    if ($html.find('#inputButton').length !== 0)
         return;
+
     const button = `<button id="inputButton" style="flex-basis: auto;">
   <i class="fas fa-atlas"></i> Import ${name}
 </button>`;
-    html.find(`.header-actions`).first().append(button);
-    html.find('#inputButton').on('click', async (e) => {
+    $html.find(`.header-actions`).first().append(button);
+    $html.find('#inputButton').on('click', async (e) => {
         e.preventDefault();
         switch (tab) {
             case 'items': {

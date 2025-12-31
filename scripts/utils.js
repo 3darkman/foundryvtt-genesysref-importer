@@ -25,6 +25,18 @@ function parseReferences(description) {
     return description;
 }
 
+export function parseTable(description) {
+    const tableRegex = /{@table ([^}]*)}/g;
+
+    const matches = description.matchAll(tableRegex);
+
+    matches.forEach((match) => {
+        description = description.replaceAll(match[0], processTable(match));
+    });
+
+    return description;
+}
+
 export function getExistingItem(name, type) {
     if (Array.isArray(type)) {
         return game.items.find((item) => item.name.toLowerCase() === name.toLowerCase() && type.includes(item.type));
@@ -43,10 +55,12 @@ export function cleanDescription(description) {
 
     if (typeof description !== 'string' && !(description instanceof String)) {
         description.forEach((paragraph) => {
-            if (paragraph.substring(0,1) !== "<") {
-                paragraph = `<p>${paragraph}</p>`;
+            if (typeof paragraph === 'string' || (paragraph instanceof String)) {
+                if (paragraph.substring(0,1) !== "<") {
+                    paragraph = `<p>${paragraph}</p>`;
+                }
+                newDescription += paragraph;
             }
-            newDescription += paragraph;
         })
         description = newDescription;
     } else {
@@ -59,6 +73,9 @@ export function cleanDescription(description) {
     description = parseDifficulty(description);
     description = parseDice(description);
     description = parseReferences(description);
+    description = parseItalics(description);
+    description = parseTable(description);
+    description = parseTitle(description);
     return description;
 }
 
@@ -74,6 +91,18 @@ export function parseDice(description) {
     return description
 }
 
+export function parseTitle(description) {
+    const titleRegex = /{@title ([^}]*)}/g;
+
+    const matches = description.matchAll(titleRegex);
+
+    matches.forEach((match) => {
+        description = description.replaceAll(match[0], processTitle(match));
+    });
+
+    return description;
+}
+
 export function parseDifficulty(description) {
     const difficultyRegex = /{@difficulty (\w*)\|([\w ()]*)(?:\|*)([0-9]*)}/g;
 
@@ -86,6 +115,18 @@ export function parseDifficulty(description) {
     return description
 }
 
+export function parseItalics(description) {
+    const italicsRegex = /{@i ([^}]*)}/g;
+
+    const matches = description.matchAll(italicsRegex);
+
+    matches.forEach((match) => {
+        description = description.replaceAll(match[0], processItalics(match));
+    });
+
+    return description;
+}
+
 export function parseSymbols(description) {
     const symbolRegex = /{@symbols (\w*)(?: or )*(\w*)}/g;
 
@@ -95,6 +136,7 @@ export function parseSymbols(description) {
     })
     return description;
 }
+
 
 export function parseSource(item, metadata) {
     const book = metadata.source.abbreviation;
@@ -117,6 +159,11 @@ export function processSymbol(match) {
     return result;
 }
 
+export function processTitle(match) {
+    const text = match[1].trim();
+    return `<b>${text}</b>`;
+}
+
 export function processDifficulty(match) {
     const difficulty = match[1].trim();
     const skill = match[2].trim();
@@ -129,6 +176,16 @@ export function processDifficulty(match) {
     }
 
     return `<b>${difficulty} (${dices}) ${skill} check</b>`;
+}
+
+export function processItalics(match) {
+    const text = match[1].trim();
+    return `<i>${text}</i>`;
+}
+
+export function processTable(match) {
+    const text = match[1].trim();
+    return `<span class="link-reference">${text}</span>`;
 }
 
 export function processDice(match) {
