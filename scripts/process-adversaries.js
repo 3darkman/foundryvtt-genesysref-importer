@@ -4,6 +4,7 @@ import {buildNewAbility} from "./process-abilities.js";
 import {buildNewSkill} from "./process-skills.js";
 import {buildNewGear} from "./process-gears.js";
 import {buildNewTalent} from "./process-talents.js";
+import {isObject} from "./utils.js";
 
 
 function parseAdversaryBasicData(newAdversary, adversary, metadata) {
@@ -17,14 +18,20 @@ function parseAdversaryBasicData(newAdversary, adversary, metadata) {
 }
 
 function parseTalents(adversary, metadata) {
+    if (adversary.talents === undefined) return [];
+
     const folder = getExistingFolder(CONSTANTS.types.talent, "Item", metadata.source.abbreviation);
     const tempTalents = [];
 
     for (const talent of adversary.talents) {
-        const document = getExistingItem(talent, CONSTANTS.types.talent);
+        if (talent === undefined) continue;
+
+        const name = isObject(talent) ? talent.name : talent;
+
+        const document = getExistingItem(name, CONSTANTS.types.talent);
         if (document === undefined) {
             const regex = /([\w ]*) ([0-9]+)/g;
-            const matches = talent.matchAll(regex);
+            const matches = name.matchAll(regex);
             for (const match of matches) {
                 const tempTalentDocument = getExistingItem(match[1], CONSTANTS.types.talent);
                 if (tempTalentDocument !== undefined) {
@@ -43,17 +50,18 @@ function parseTalents(adversary, metadata) {
                    });
                 }
                 else {
-                    tempTalents.push(buildNewTalent({name: talent, description: "", activation: "", type: CONSTANTS.types.talent }, metadata, folder !== null ? folder._id : null));
+                    tempTalents.push(buildNewTalent({name: name, description: "", activation: "", type: CONSTANTS.types.talent }, metadata, folder !== null ? folder._id : null));
                 }
             }
         } else {
-            tempTalents.push(buildNewTalent({name: talent, description: "", activation: "", type: CONSTANTS.types.talent }, metadata, folder !== null ? folder._id : null));
+            tempTalents.push(buildNewTalent({name: name, description: "", activation: "", type: CONSTANTS.types.talent }, metadata, folder !== null ? folder._id : null));
         }
     }
     return tempTalents;
 }
 
 async function parseGears(adversary, metadata) {
+    if (adversary.gear === undefined) return [];
     let gears = await Promise.all(adversary.gear.map(async (gear) => {
         const document = getExistingItem(gear, [CONSTANTS.types.gear, CONSTANTS.types.armor, CONSTANTS.types.container, CONSTANTS.types.consumable]);
         if (document === undefined) {
@@ -68,6 +76,7 @@ async function parseGears(adversary, metadata) {
         return document;
     }));
 
+    if (adversary.weapons === undefined) return [];
     let weapons = await Promise.all(adversary.weapons.map(async (weapon) => {
         const document = getExistingItem(weapon.name, CONSTANTS.types.weapon);
         if (document === undefined) {

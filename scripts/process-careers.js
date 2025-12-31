@@ -2,6 +2,7 @@ import {CONSTANTS} from "./constants.js";
 import {parseBasicData} from "./utils.js";
 
 function parseCareerSkills(career, ) {
+    console.log(career.skills);
     return career.skills.map((skill) => game.items.find((item) => item.name.toLowerCase() === skill.name.toLowerCase() && item.type === CONSTANTS.types.skill));
 }
 
@@ -21,6 +22,7 @@ export function buildNewCareer(career, metadata) {
 }
 
 export async function processCareers(obj, metadata) {
+    console.log(obj);
     if (obj[CONSTANTS.divisions.career] === undefined) {
         return [];
     }
@@ -36,5 +38,6 @@ export async function processCareers(obj, metadata) {
         tempCareers.push(newCareer);
     });
 
+    console.log(tempCareers);
     return Item.create(tempCareers);
 }

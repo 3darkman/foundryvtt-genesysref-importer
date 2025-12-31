@@ -25,6 +25,10 @@ function parseReferences(description) {
     return description;
 }
 
+export function isObject(value) {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
 export function parseTable(description) {
     const tableRegex = /{@table ([^}]*)}/g;
 
@@ -38,6 +42,9 @@ export function parseTable(description) {
 }
 
 export function getExistingItem(name, type) {
+    console.log(name);
+    console.log(type);
+
     if (Array.isArray(type)) {
         return game.items.find((item) => item.name.toLowerCase() === name.toLowerCase() && type.includes(item.type));
     } else {
