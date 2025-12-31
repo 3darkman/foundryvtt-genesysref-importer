@@ -121,7 +121,6 @@ async function parseSkills(adversary, metadata) {
         }
 
         if (skill["ranks"] !== undefined) {
-            metadata.source.abbreviation = document.folder.folder.name;
             return buildNewSkill({
                 name: document.name,
                 description: document.system.description,

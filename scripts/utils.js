@@ -60,19 +60,24 @@ export function getExistingFolder(name, type, source = null) {
 export function cleanDescription(description) {
     let newDescription = "";
 
-    if (typeof description !== 'string' && !(description instanceof String)) {
-        description.forEach((paragraph) => {
-            if (typeof paragraph === 'string' || (paragraph instanceof String)) {
-                if (paragraph.substring(0,1) !== "<") {
-                    paragraph = `<p>${paragraph}</p>`;
+    if (description === undefined)
+        description = '<p></p>';
+    else {
+
+        if (typeof description !== 'string' && !(description instanceof String)) {
+            description.forEach((paragraph) => {
+                if (typeof paragraph === 'string' || (paragraph instanceof String)) {
+                    if (paragraph.substring(0, 1) !== "<") {
+                        paragraph = `<p>${paragraph}</p>`;
+                    }
+                    newDescription += paragraph;
                 }
-                newDescription += paragraph;
+            })
+            description = newDescription;
+        } else {
+            if (description.substring(0, 1) !== "<") {
+                description = `<p>${description}</p>`;
             }
-        })
-        description = newDescription;
-    } else {
-        if (description.substring(0,1) !== "<") {
-            description = `<p>${description}</p>`;
         }
     }
 
